@@ -32,6 +32,10 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
 
     function addPage($title, $sortkey, $pageLength, $isRedirect = false)
     {
+        if (!$title->quickUserCan('read'))
+        {
+            return;
+        }
         $this->titles[] = $title;
         parent::addPage($title, $sortkey, $pageLength, $isRedirect);
     }
