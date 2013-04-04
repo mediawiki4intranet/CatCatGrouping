@@ -87,7 +87,7 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
             while ($i < $n-1 && $start_char[$i] == $start_char[$i+1])
                 $i++;
             /* Group last 1-char subtitle also */
-            if ($e == $s && mb_strlen($start_char[$i+1]) == 1 &&
+            if ($i < $n-1 && $e == $s && mb_strlen($start_char[$i+1]) == 1 &&
                 ($i == $n-2 || mb_strlen($start_char[$i+2]) > 1))
                 $e = ++$i;
             if ($e > $s)
