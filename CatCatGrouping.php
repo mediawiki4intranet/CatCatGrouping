@@ -28,7 +28,7 @@ $wgExtensionCredits['parserhook'][] = array(
     'name' => 'CatCatGrouping',
     'author' => 'Vitaliy Filippov',
     'url' => 'https://wiki.4intra.net/CatCatGrouping',
-    'descriptionmsg' => 'Adds new mode for displaying categories - pages are grouped'.
+    'description' => 'Adds new mode for displaying categories - pages are grouped'.
         ' by other categories they belong to. Triggered by __CATEGORYSUBCATLIST__ or configured globally.',
 );
 
@@ -64,8 +64,12 @@ function efCCGInit()
     global $wgHooks;
     $n = count($wgHooks['ArticleFromTitle']);
     for ($i = $n-1; $i >= 0; $i--)
+    {
         if ($wgHooks['ArticleFromTitle'][$i] == 'efCategoryTreeArticleFromTitle')
+        {
             array_splice($wgHooks['ArticleFromTitle'], $i, 1);
+        }
+    }
 }
 
 function efCCGMagicWordwgVariableIDs(&$wgVariableIDs)
@@ -79,26 +83,38 @@ function efCCGMagicWordwgVariableIDs(&$wgVariableIDs)
 function efCCGOutputPageParserOutput(&$out, $parserOutput)
 {
     if (isset($parserOutput->useSubcategorizedList))
+    {
         $out->useSubcategorizedList = $parserOutput->useSubcategorizedList;
+    }
     if (isset($parserOutput->noCategoryColumns))
+    {
         $out->noCategoryColumns = $parserOutput->noCategoryColumns;
+    }
     return true;
 }
 
 function efCCGParserBeforeInternalParse($parser, &$text, $stripState)
 {
     if (MagicWord::get('nocategorysubcatlist')->matchAndRemove($text))
+    {
         $parser->mOutput->useSubcategorizedList = FALSE;
+    }
     if (MagicWord::get('categorysubcatlist')->matchAndRemove($text))
+    {
         $parser->mOutput->useSubcategorizedList = TRUE;
+    }
     if (MagicWord::get('nocategorycolumns')->matchAndRemove($text))
+    {
         $parser->mOutput->noCategoryColumns = TRUE;
+    }
     return true;
 }
 
 function efCCGArticleFromTitle($title, &$article)
 {
     if ($title->getNamespace() == NS_CATEGORY)
+    {
         $article = new CatCatGroupingCategoryPage($title);
+    }
     return true;
 }
