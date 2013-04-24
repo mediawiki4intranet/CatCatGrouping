@@ -17,9 +17,18 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
      * @return String
      * @private
      */
-    function formatList($articles, $articles_start_char, $cutoff = 6)
+    function formatList($articles, $articles_start_char, $cutoff = NULL)
     {
         global $wgOut;
+        if ($cutoff === NULL)
+        {
+            global $wgMinUncatPagesAlphaList;
+            $cutoff = $wgMinUncatPagesAlphaList;
+            if (!$cutoff || $cutoff < 0)
+            {
+                $cutoff = 10;
+            }
+        }
         if (!isset($wgOut->noCategoryColumns) && count($articles) > $cutoff)
         {
             return $this->columnList($articles, $articles_start_char);
@@ -27,7 +36,7 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
         elseif ($articles)
         {
             // for short lists of articles in categories.
-            return $this->shortList($articles, $articles_start_char);
+            return self::shortList($articles, $articles_start_char);
         }
         return '';
     }
