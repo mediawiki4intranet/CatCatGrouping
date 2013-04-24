@@ -29,9 +29,14 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
                 $cutoff = 10;
             }
         }
-        if (!isset($wgOut->noCategoryColumns) && count($articles) > $cutoff)
+        if (empty($wgOut->noCategoryColumns) && count($articles) > $cutoff)
         {
             return $this->columnList($articles, $articles_start_char);
+        }
+        elseif (isset($wgOut->noCategoryColumns) && $wgOut->noCategoryColumns === false)
+        {
+            // forced column list
+            return parent::columnList($articles, $articles_start_char);
         }
         elseif ($articles)
         {

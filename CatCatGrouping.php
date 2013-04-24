@@ -76,7 +76,9 @@ function efCCGMagicWordwgVariableIDs(&$wgVariableIDs)
 {
     wfLoadExtensionMessages('CatCatGrouping');
     $wgVariableIDs[] = 'nocategorysubcatlist';
+    $wgVariableIDs[] = 'categorysubcatlist';
     $wgVariableIDs[] = 'nocategorycolumns';
+    $wgVariableIDs[] = 'usecategorycolumns';
     return true;
 }
 
@@ -102,6 +104,10 @@ function efCCGParserBeforeInternalParse($parser, &$text, $stripState)
     if (MagicWord::get('categorysubcatlist')->matchAndRemove($text))
     {
         $parser->mOutput->useSubcategorizedList = TRUE;
+    }
+    if (MagicWord::get('usecategorycolumns')->matchAndRemove($text))
+    {
+        $parser->mOutput->noCategoryColumns = FALSE;
     }
     if (MagicWord::get('nocategorycolumns')->matchAndRemove($text))
     {
