@@ -74,7 +74,6 @@ function efCCGInit()
 
 function efCCGMagicWordwgVariableIDs(&$wgVariableIDs)
 {
-    wfLoadExtensionMessages('CatCatGrouping');
     $wgVariableIDs[] = 'nocategorysubcatlist';
     $wgVariableIDs[] = 'categorysubcatlist';
     $wgVariableIDs[] = 'nocategorycolumns';
