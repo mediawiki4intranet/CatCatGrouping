@@ -132,14 +132,17 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
         global $wgCategorySubcategorizedList;
         global $wgSubcategorizedAlwaysExclude;
         global $wgOut;
-        if (!isset($wgOut->useSubcategorizedList))
+        $cutoff = $wgMinUncatPagesAlphaList;
+        if (!$cutoff || $cutoff < 0)
         {
-            $wgOut->useSubcategorizedList = false;
+            $cutoff = 10;
         }
-        /* If there are no articles, or if we are forced to show normal list - show it */
-        if (!$this->articles || !$wgCategorySubcategorizedList && !$wgOut->useSubcategorizedList ||
-            $wgCategorySubcategorizedList && !is_null($wgOut->useSubcategorizedList) &&
-            !$wgOut->useSubcategorizedList)
+        // Do not transform page array:
+        // - If there is less than $wgMinUncatPagesAlphaList articles - we'll show non-grouped short list then
+        // - If it's disabled globally or via __NOCATEGORYSUBCATLIST__
+        if (count($this->articles) < $cutoff ||
+            empty($wgOut->useSubcategorizedList) &&
+            (!$wgCategorySubcategorizedList || isset($wgOut->useSubcategorizedList)))
         {
             return parent::getPagesSection();
         }
@@ -194,11 +197,6 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
             {
                 $count_undone++;
             }
-        }
-        $cutoff = $wgMinUncatPagesAlphaList;
-        if (!$cutoff || $cutoff < 0)
-        {
-            $cutoff = 10;
         }
         /* If there is less than $cutoff, show them all with
            current category subtitle, else show normal alpha-list. */
