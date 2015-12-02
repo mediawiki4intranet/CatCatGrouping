@@ -30,6 +30,7 @@ $wgExtensionCredits['parserhook'][] = array(
     'url' => 'https://wiki.4intra.net/CatCatGrouping',
     'description' => 'Adds new mode for displaying categories - pages are grouped'.
         ' by other categories they belong to. Triggered by __CATEGORYSUBCATLIST__ or configured globally.',
+    'version' => '2015-12-02',
 );
 
 $wgExtensionMessagesFiles['CatCatGrouping'] = dirname(__FILE__).'/CatCatGrouping.i18n.php';
@@ -78,6 +79,7 @@ function efCCGMagicWordwgVariableIDs(&$wgVariableIDs)
     $wgVariableIDs[] = 'categorysubcatlist';
     $wgVariableIDs[] = 'nocategorycolumns';
     $wgVariableIDs[] = 'usecategorycolumns';
+    $wgVariableIDs[] = 'nocategorypages';
     return true;
 }
 
@@ -90,6 +92,10 @@ function efCCGOutputPageParserOutput(&$out, $parserOutput)
     if (isset($parserOutput->noCategoryColumns))
     {
         $out->noCategoryColumns = $parserOutput->noCategoryColumns;
+    }
+    if (isset($parserOutput->noCategoryPages))
+    {
+        $out->noCategoryPages = $parserOutput->noCategoryPages;
     }
     return true;
 }
@@ -111,6 +117,10 @@ function efCCGParserBeforeInternalParse($parser, &$text, $stripState)
     if (MagicWord::get('nocategorycolumns')->matchAndRemove($text))
     {
         $parser->mOutput->noCategoryColumns = TRUE;
+    }
+    if (MagicWord::get('nocategorypages')->matchAndRemove($text))
+    {
+        $parser->mOutput->noCategoryPages = TRUE;
     }
     return true;
 }

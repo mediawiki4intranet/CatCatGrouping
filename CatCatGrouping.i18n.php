@@ -7,4 +7,5 @@ $magicWords['en'] = array(
     'categorysubcatlist' => array(0, '__CATEGORYSUBCATLIST__'),
     'nocategorycolumns' => array(0, '__NOCATEGORYCOLUMNS__'),
     'usecategorycolumns' => array(0, '__USECATEGORYCOLUMNS__'),
+    'nocategorypages' => array(0, '__NOCATEGORYPAGES__'),
 );

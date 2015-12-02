@@ -132,6 +132,11 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
         global $wgCategorySubcategorizedList;
         global $wgSubcategorizedAlwaysExclude;
         global $wgOut;
+        if (!empty($wgOut->noCategoryPages))
+        {
+            // category page listing disabled
+            return '<!-- -->';
+        }
         $cutoff = $wgMinUncatPagesAlphaList;
         if (!$cutoff || $cutoff < 0)
         {
@@ -220,6 +225,17 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
         $this->articles_start_char = $newkey;
         $html = parent::getPagesSection();
         return $html;
+    }
+
+    function getSubcategorySection()
+    {
+        global $wgOut;
+        if (!empty($wgOut->noCategoryPages))
+        {
+            // subcategory listing disabled
+            return '<!-- -->';
+        }
+        return parent::getPagesSection();
     }
 
     /* Short list without subtitles, if not called from $this->getPagesSection() */
