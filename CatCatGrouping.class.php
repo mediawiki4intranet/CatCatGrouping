@@ -235,7 +235,7 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
             // subcategory listing disabled
             return '<!-- -->';
         }
-        return parent::getPagesSection();
+        return parent::getSubcategorySection();
     }
 
     /* Short list without subtitles, if not called from $this->getPagesSection() */
