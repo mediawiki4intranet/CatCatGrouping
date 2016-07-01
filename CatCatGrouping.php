@@ -102,6 +102,8 @@ function efCCGOutputPageParserOutput(&$out, $parserOutput)
 
 function efCCGParserBeforeInternalParse($parser, &$text, $stripState)
 {
+global $wgNoCategoryColumns;
+
     if (MagicWord::get('nocategorysubcatlist')->matchAndRemove($text))
     {
         $parser->mOutput->useSubcategorizedList = FALSE;
@@ -114,7 +116,7 @@ function efCCGParserBeforeInternalParse($parser, &$text, $stripState)
     {
         $parser->mOutput->noCategoryColumns = FALSE;
     }
-    if (MagicWord::get('nocategorycolumns')->matchAndRemove($text))
+    if (MagicWord::get('nocategorycolumns')->matchAndRemove($text) || (array_key_exists('wgNoCategoryColumns', $GLOBALS) && $wgNoCategoryColumns))
     {
         $parser->mOutput->noCategoryColumns = TRUE;
     }
