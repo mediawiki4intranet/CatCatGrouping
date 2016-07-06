@@ -52,6 +52,9 @@ $wgCategorySubcategorizedList = true;
 // Group adjacent subcategories having just a single page inside or not
 $wgCategoryGroupCharacters = true;
 
+// Disable 3-column list in all categories by default
+$wgNoCategoryColumns = false;
+
 // If there are more than 10 pages in a category that don't have at least
 // one more category associated, show normal alpha-list.
 $wgMinUncatPagesAlphaList = 10;

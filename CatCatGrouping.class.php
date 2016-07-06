@@ -19,7 +19,7 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
      */
     function formatList($articles, $articles_start_char, $cutoff = NULL)
     {
-        global $wgOut;
+        global $wgOut, $wgNoCategoryColumns;
         if ($cutoff === NULL)
         {
             global $wgMinUncatPagesAlphaList;
@@ -29,14 +29,11 @@ class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
                 $cutoff = 10;
             }
         }
-        if (empty($wgOut->noCategoryColumns) && count($articles) > $cutoff)
+        if ($wgNoCategoryColumns
+            ? (isset($wgOut->noCategoryColumns) && $wgOut->noCategoryColumns === false)
+            : (empty($wgOut->noCategoryColumns) && count($articles) > $cutoff))
         {
             return $this->columnList($articles, $articles_start_char);
-        }
-        elseif (isset($wgOut->noCategoryColumns) && $wgOut->noCategoryColumns === false)
-        {
-            // forced column list
-            return parent::columnList($articles, $articles_start_char);
         }
         elseif ($articles)
         {
