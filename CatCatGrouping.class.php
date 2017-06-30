@@ -2,7 +2,7 @@
 
 class CatCatGroupingCategoryPage extends CategoryTreeCategoryPage
 {
-    protected $mCategoryViewerClass = 'CatCatGroupingCategoryViewer';
+    public $mCategoryViewerClass = 'CatCatGroupingCategoryViewer';
 }
 
 class CatCatGroupingCategoryViewer extends CategoryTreeCategoryViewer
