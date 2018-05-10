@@ -86,7 +86,7 @@ function efCCGMagicWordwgVariableIDs(&$wgVariableIDs)
     return true;
 }
 
-function efCCGOutputPageParserOutput(&$out, $parserOutput)
+function efCCGOutputPageParserOutput($out, $parserOutput)
 {
     if (isset($parserOutput->useSubcategorizedList))
     {
